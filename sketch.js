@@ -91,7 +91,7 @@ function draw(){
   fontColor = "white";
   rocket.collide(edges);
   if(gameState===PLAY){
-    if (ground.y > height+10){
+    if (ground.y > height+1){
       ground.y = ground.height/2;        
     }
     
