@@ -37,7 +37,7 @@ function preload(){
 
 function setup(){
   createCanvas(windowWidth,windowHeight);
-  rocket = createSprite(width/2,height-50,40,100);
+  rocket = createSprite(width/2,height-80,40,100);
   rocket.addImage("rocket",rocketImage);
   rocket.scale = 0.1;
   edges = new Group();
@@ -48,6 +48,10 @@ function setup(){
   obstaclesGroup5 = new Group();
   planetGroup = new Group();
   bulletGroup = new Group();
+  var right = createSprite(width,height/2,1,width); 
+  edges.add(right); 
+  var left = createSprite(0,height/2,1,width); 
+  edges.add(left);
   //var right = createSprite(600,300,1,600);
   //edges.add(right);
  // var left = createSprite(0,300,1,600);
@@ -57,10 +61,10 @@ function setup(){
  // var bottom = createSprite(300,600,600,1);
   //edges.add(bottom);
   score = 0;
-  restart = createSprite(width/2,height/2);
+  restart = createSprite(width/2,height/2+50);
   restart.addImage(restartImage);
   restart.visible = false;
-  gameover = createSprite(width/2,height-30);
+  gameover = createSprite(width/2,height/2);
   gameover.addImage("gameover",gameoverImage);
   gameover.visible = false;
   ground = createSprite(width/2,height/2,width,height);
@@ -85,9 +89,9 @@ function draw(){
     //text("Score: "+ score, Width/2-20,Height-40);
   
   fontColor = "white";
-  //rocket.collide(edges);
+  rocket.collide(edges);
   if(gameState===PLAY){
-    if (ground.y > height+100){
+    if (ground.y > height+10){
       ground.y = ground.height/2;        
     }
     
@@ -103,22 +107,11 @@ function draw(){
     gameState = END;
     dieSound.play();
   }
-  if(obstaclesGroup2.isTouching(rocket)){
+  if(planetGroup.isTouching(rocket)){
     gameState = END;
     dieSound.play();
   }
-  if(obstaclesGroup3.isTouching(rocket)){
-    gameState = END;
-    dieSound.play();
-  }
-  if(obstaclesGroup4.isTouching(rocket)){
-    gameState = END;
-    dieSound.play();
-  }
-  if(obstaclesGroup5.isTouching(rocket)){
-    gameState = END;
-    dieSound.play();
-  }
+  
     if(bulletGroup.isTouching(obstaclesGroup1)){
       obstaclesGroup1.destroyEach();
       bulletGroup.destroyEach();
@@ -213,7 +206,7 @@ function createPlanets(){
 }
 
 function createBullet(x,y) {
- var bullet= createSprite(100, 100, 5, 10);
+ var bullet= createSprite(rocket.x, rocket.y-10, 5, 10);
   bullet.y = y;
   bullet.x = x;                                           
   bullet.shapeColor = "red";
@@ -236,8 +229,8 @@ function createBullet(x,y) {
     score = 0;
     restart.visible = false;
     gameover.visible = false;
-    rocket.x = 300;
-    rocket.y = 510;
+    rocket.x = width/2;
+    rocket.y = height-80;
     ground.velocityY = 5;
 
   }
