@@ -22,7 +22,7 @@ function preload(){
   planet0 = loadImage("./images/planet.png");
   planet1 = loadImage("./images/planet1.png");
   planet2 = loadImage("./images/planet2.png")
-  groundImage = loadImage("./images/backgroung.png")
+  groundImage = loadImage("./images/background.png");
   rocketImage = loadImage("./images/Rocket.png");
   dieSound = loadSound("./sounds/explode.wav");
   powerupSound = loadSound("./sounds/powerup.wav");
@@ -70,14 +70,15 @@ function setup(){
   ground = createSprite(width/2,height/2,width,height);
   //ground.visible = false;
   ground.addImage("ground", groundImage);
+  //ground.scale = 0.001;
   ground.y = ground.height/2;
-  ground.velocityY = 3;
+  ground.velocityY = 5;
   if(frameCount%500===0){
     ground.velocityY = ground.velocityY + 3;
 
   }
   
-  ground.scale = 2;
+  ground.scale = 4;
   ground.depth = rocket.depth -5;
   
   
@@ -91,7 +92,7 @@ function draw(){
   fontColor = "white";
   rocket.collide(edges);
   if(gameState===PLAY){
-    if (ground.y > height+1){
+    if (ground.y > height+100){
       ground.y = ground.height/2;        
     }
     
