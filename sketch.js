@@ -150,7 +150,7 @@ if(frameCount%50===0){
     ground.velocityY = 0;
     restart.visible = true;
     gameover.visible = true;
-    if(mousePressedOver(restart)) {
+    if(mousePressedOver(restart)|| touches.length>0) {
       reset();
     }
     }
